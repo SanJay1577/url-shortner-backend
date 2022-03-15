@@ -80,7 +80,7 @@ router.get("/users/:id/verify/:token", async (req, res) => {
       token: req.params.token,
     });
     if (!token) return res.status(400).send({ message: "Link Expired" });
-    await User.updateOne({ email: user.email, verified: true });
+    await User.findOneAndUpdate({ email: user.email, verified: true });
     await token.remove();
     res.status(200).send({ message: "Verfied Sucessfully!!!" });
   } catch (error) {
